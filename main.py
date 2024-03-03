@@ -1,7 +1,9 @@
+import asyncio
+
 from module.login import login
 
-def main():
-    login()
+async def main():
+    await login()
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())

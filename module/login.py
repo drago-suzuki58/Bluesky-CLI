@@ -1,12 +1,12 @@
-from atproto import Client
+from atproto import AsyncClient
 
-def login():
-    client = Client()
+async def login():
+    client = AsyncClient()
 
     username = input("Your Username: ")
     password = input("Your password: ")
     try:
-        profile = client.login(username, password)
+        profile = await client.login(username, password)
     except Exception as e:
         print("Login failed: ")
         return
