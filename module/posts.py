@@ -3,5 +3,10 @@ async def post(client):
     text = input("\nEnter your post: ")
     formatted_text = text.replace("\\n", "\n")
 
-    responcse = await client.post(text=formatted_text)
-    print(responcse) #!debug
+    response = await client.post(text=formatted_text)
+    print(response) #!debug
+
+async def get_feed(client):
+    feed = await client.get_author_feed(actor=client.me.handle)
+    for post in feed:
+        print(post) #!debug
