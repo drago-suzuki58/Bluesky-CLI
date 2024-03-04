@@ -1,13 +1,6 @@
-import asyncio
-
 import module.posts as posts
 
-async def commands(client):
-    while True:
-        user_input = input("BlueSky>>")
-
-        if user_input == "help":
-            print("""
+HELP_MESSAGE = """
 post: Create a new post
 
 get
@@ -16,7 +9,15 @@ get
     user: Get specific user's profile
 help: Shows this message
 exit: Exits the program
-""")
+"""
+
+async def commands(client):
+    while True:
+        user_input = input("BlueSky>>")
+
+        if user_input == "help":
+            print(HELP_MESSAGE)
+
         elif user_input == "post":
             await posts.post(client)
 
