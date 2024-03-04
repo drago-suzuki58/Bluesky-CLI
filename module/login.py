@@ -56,3 +56,5 @@ async def login():
                 break
             else:
                 print("Invalid input. Please enter 'y' or 'n'.")
+
+    return client
