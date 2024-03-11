@@ -24,6 +24,9 @@ async def commands(client):
         elif user_input.startswith("get feed"):
             await posts.get_feed(client)
 
+        elif user_input.startswith("get tl"):
+            await posts.get_timeline(client)
+
         elif user_input == "exit":
             print("See you later!")
             break
