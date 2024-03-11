@@ -1,3 +1,6 @@
+import os
+import sys
+
 import module.posts as posts
 
 HELP_MESSAGE = """
@@ -26,6 +29,10 @@ async def commands(client):
 
         elif user_input.startswith("get tl"):
             await posts.get_timeline(client)
+
+        elif user_input == "restart":
+            print("Restarting...Please wait...")
+            os.execv(sys.executable, ['python'] + sys.argv)
 
         elif user_input == "exit":
             print("See you later!")
