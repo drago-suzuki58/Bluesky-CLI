@@ -1,4 +1,3 @@
-import os
 import sys
 
 import module.posts as posts
@@ -32,11 +31,11 @@ async def commands(client):
 
         elif user_input == "restart":
             print("Restarting...Please wait...")
-            os.execv(sys.executable, ['python'] + sys.argv)
+            sys.exit(0)
 
         elif user_input == "exit":
             print("See you later!")
-            break
+            sys.exit(1)
 
         else:
             print("\033[31m","Unknown command. Type 'help' for a list of commands.","\033[0m")
