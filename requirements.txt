@@ -1,0 +1,4 @@
+atproto==0.0.44
+ascii_magic==2.3.0
+beautifulsoup4==4.12.3
+colorama==0.4.6
