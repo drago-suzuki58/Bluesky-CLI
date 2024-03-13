@@ -1,16 +1,21 @@
 import sys
 
 import module.posts as posts
+import module.profile as profile
 
 HELP_MESSAGE = """
-post: Create a new post
+post : Create a new post
 
 get
-    feed: Get BlueSky feed
-    post: Get specific posts
-    user: Get specific user's profile
-help: Shows this message
-exit: Exits the program
+    feed : Get User's feed
+    tl : Get User's timeline
+    profile <handle> : Get specific user's profile
+
+help : Shows this message
+
+restart : Restarts this program(Only when started from bat file)
+
+exit : Exits the program
 """
 
 async def commands(client):
@@ -28,6 +33,14 @@ async def commands(client):
 
         elif user_input.startswith("get tl"):
             await posts.get_timeline(client)
+
+        elif user_input.startswith("get profile"):
+            handle = user_input.split(" ")[-1]
+            # handleが指定されていない場合は、handle=profileになるのでそれをエラーとして処理
+            if handle == "profile":
+                print("\033[31m","Error: No handle specified. Please type handle.","\033[0m")
+            else:
+                await profile.get_profile(client, handle)
 
         elif user_input == "restart":
             print("Restarting...Please wait...")
