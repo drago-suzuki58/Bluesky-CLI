@@ -1,4 +1,5 @@
 import sys
+from tkinter import E
 
 import module.posts as posts
 import module.profile as profile
@@ -10,6 +11,8 @@ get
     feed : Get User's feed
     tl : Get User's timeline
     profile <handle> : Get specific user's profile
+    followers <handle> : Get specific user's followers
+    following <handle> : Get specific user's following
 
 help : Shows this message
 
@@ -17,6 +20,8 @@ restart : Restarts this program(Only when started from bat file)
 
 exit : Exits the program
 """
+
+ERROR_HANDLE_MESSAGE = "\033[31mError: No handle specified. Please type handle.\033[0m"
 
 async def commands(client):
     while True:
@@ -38,9 +43,23 @@ async def commands(client):
             handle = user_input.split(" ")[-1]
             # handleが指定されていない場合は、handle=profileになるのでそれをエラーとして処理
             if handle == "profile":
-                print("\033[31m","Error: No handle specified. Please type handle.","\033[0m")
+                print(ERROR_HANDLE_MESSAGE)
             else:
                 await profile.get_profile(client, handle)
+
+        elif user_input.startswith("get followers"):
+            handle = user_input.split(" ")[-1]
+            if handle == "followers":
+                print(ERROR_HANDLE_MESSAGE)
+            else:
+                await profile.print_followers(client, handle)
+
+        elif user_input.startswith("get following"):
+            handle = user_input.split(" ")[-1]
+            if handle == "following":
+                print(ERROR_HANDLE_MESSAGE)
+            else:
+                await profile.print_following(client, handle)
 
         elif user_input == "restart":
             print("Restarting...Please wait...")

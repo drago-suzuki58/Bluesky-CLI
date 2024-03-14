@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import re
 import ascii_magic
 import configparser
+from colorama import Fore
 
 config = configparser.ConfigParser()
 config.read(f'scripts/profile/config/graphical_RGB.ini')
@@ -75,3 +76,19 @@ def print_profile(profile):
             print(profile_text[i - 6])
         else:
             print()
+
+def print_followers(followers):
+    for user in followers.followers:
+        if user.description is not None:
+            replaced_user_description = user.description.replace("\n", f"{Fore.YELLOW}\\n{Fore.RESET}")
+            print(f"{user.display_name}(@{user.handle})\n{replaced_user_description}\n")
+        else:
+            print(f"{user.display_name}(@{user.handle})\n--No description available--\n")
+
+def print_following(following):
+    for user in following.follows:
+        if user.description is not None:
+            replaced_user_description = user.description.replace("\n", f"{Fore.YELLOW}\\n{Fore.RESET}")
+            print(f"{user.display_name}(@{user.handle})\n{replaced_user_description}\n")
+        else:
+            print(f"{user.display_name}(@{user.handle})\n--No description available--\n")
