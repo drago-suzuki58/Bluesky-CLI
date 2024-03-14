@@ -77,18 +77,16 @@ def print_profile(profile):
         else:
             print()
 
-def print_followers(followers):
-    for user in followers.followers:
+def print_user_info(users, attribute_name):
+    for user in getattr(users, attribute_name):
         if user.description is not None:
             replaced_user_description = user.description.replace("\n", f"{Fore.YELLOW}\\n{Fore.RESET}")
             print(f"{user.display_name}(@{user.handle})\n{replaced_user_description}\n")
         else:
             print(f"{user.display_name}(@{user.handle})\n--No description available--\n")
 
+def print_followers(followers):
+    print_user_info(followers, 'followers')
+
 def print_following(following):
-    for user in following.follows:
-        if user.description is not None:
-            replaced_user_description = user.description.replace("\n", f"{Fore.YELLOW}\\n{Fore.RESET}")
-            print(f"{user.display_name}(@{user.handle})\n{replaced_user_description}\n")
-        else:
-            print(f"{user.display_name}(@{user.handle})\n--No description available--\n")
+    print_user_info(following, 'follows')

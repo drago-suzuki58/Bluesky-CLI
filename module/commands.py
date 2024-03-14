@@ -45,21 +45,30 @@ async def commands(client):
             if handle == "profile":
                 print(ERROR_HANDLE_MESSAGE)
             else:
-                await profile.get_profile(client, handle)
+                try:
+                    await profile.get_profile(client, handle)
+                except Exception as e:
+                    print(f"HANDLE: {handle} is not found.")
 
         elif user_input.startswith("get followers"):
             handle = user_input.split(" ")[-1]
             if handle == "followers":
                 print(ERROR_HANDLE_MESSAGE)
             else:
-                await profile.print_followers(client, handle)
+                try:
+                    await profile.print_followers(client, handle)
+                except Exception as e:
+                    print(f"HANDLE: {handle} is not found.")
 
         elif user_input.startswith("get following"):
             handle = user_input.split(" ")[-1]
             if handle == "following":
                 print(ERROR_HANDLE_MESSAGE)
             else:
-                await profile.print_following(client, handle)
+                try:
+                    await profile.print_following(client, handle)
+                except Exception as e:
+                    print(f"HANDLE: {handle} is not found.")
 
         elif user_input == "restart":
             print("Restarting...Please wait...")
