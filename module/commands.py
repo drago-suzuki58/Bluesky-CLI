@@ -1,5 +1,4 @@
 import sys
-from tkinter import E
 
 import module.posts as posts
 import module.profile as profile
@@ -30,11 +29,12 @@ async def commands(client):
         if user_input == "help":
             print(HELP_MESSAGE)
 
-        elif user_input == "post":
+        elif user_input.startswith("post"):
             await posts.post(client)
 
         elif user_input.startswith("get feed"):
-            await posts.get_feed(client)
+            handle = user_input.split(" ")[-1]
+            await posts.get_feed(client, handle)
 
         elif user_input.startswith("get tl"):
             await posts.get_timeline(client)
