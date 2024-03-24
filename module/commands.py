@@ -4,20 +4,22 @@ import module.posts as posts
 import module.profile as profile
 
 HELP_MESSAGE = """
-post : Create a new post
+post                     : Create a new post
+like <cid> <uri>         : Like a post
+repost <cid> <uri>       : Repost a post
 
 get
-    feed : Get User's feed
-    tl : Get User's timeline
-    profile <handle> : Get specific user's profile
-    followers <handle> : Get specific user's followers
-    following <handle> : Get specific user's following
+    feed <handle>        : Get User's feed
+    tl                   : Get User's timeline
+    profile <handle>     : Get specific user's profile
+    followers <handle>   : Get specific user's followers
+    following <handle>   : Get specific user's following
 
-help : Shows this message
+help                     : Shows this message
 
-restart : Restarts this program(Only when started from bat file)
+restart                  : Restarts this program(Only when started from bat file)
 
-exit : Exits the program
+exit                     : Exits the program
 """
 
 ERROR_HANDLE_MESSAGE = "\033[31mError: No handle specified. Please type handle.\033[0m"
@@ -31,6 +33,16 @@ async def commands(client):
 
         elif user_input.startswith("post"):
             await posts.post(client)
+
+        elif user_input.startswith("like"):
+            cid = user_input.split(" ")[1]
+            uri = user_input.split(" ")[2]
+            await posts.like(client, uri, cid)
+
+        elif user_input.startswith("repost"):
+            cid = user_input.split(" ")[1]
+            uri = user_input.split(" ")[2]
+            await posts.repost(client, uri, cid)
 
         elif user_input.startswith("get feed"):
             handle = user_input.split(" ")[-1]

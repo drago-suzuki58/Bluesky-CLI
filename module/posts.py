@@ -14,6 +14,12 @@ async def post(client):
     response = await client.post(text=formatted_text, langs=[config['post_language']])
     print(response) #!debug
 
+async def like(client, uri, cid):
+    await client.like(uri=uri, cid=cid)
+
+async def repost(client, uri, cid):
+    await client.repost(uri=uri, cid=cid)
+
 async def get_feed(client, handle):
     try:
         feed = await client.get_author_feed(actor=handle)
