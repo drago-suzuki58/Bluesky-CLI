@@ -1,11 +1,10 @@
 import configparser
 import importlib
 
-config = configparser.ConfigParser()
-config.read('config/config.ini')
+import module.configs as configs
 
-profile_script_name = config['script']['profile_script']
-profile_script = importlib.import_module(f"scripts.profile.{profile_script_name}")
+config = configs.load_config()
+profile_script = importlib.import_module(f"scripts.profile.{config['profile_script']}")
 
 async def get_profile(client, handle):
     profile = await client.get_profile(actor=handle)

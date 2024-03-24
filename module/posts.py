@@ -1,21 +1,17 @@
-import configparser
 import importlib
 
+import module.configs as configs
+
 # スクリプトフォルダから動的にスクリプトを読み込ませる
-config = configparser.ConfigParser()
-config.read('config/config.ini')
-
-post_script_name = config['script']['post_script']
-post_language = config['config']['post_language']
-
-post_script = importlib.import_module(f"scripts.post.{post_script_name}")
+config = configs.load_config()
+post_script = importlib.import_module(f"scripts.post.{config['post_script']}")
 
 async def post(client):
     print("'\\n' is a newline character. Use it to create a new line in your post.")
     text = input("\nEnter your post: ")
     formatted_text = text.replace("\\n", "\n")
 
-    response = await client.post(text=formatted_text, langs=[post_language])
+    response = await client.post(text=formatted_text, langs=[config['post_language']])
     print(response) #!debug
 
 async def get_feed(client, handle):

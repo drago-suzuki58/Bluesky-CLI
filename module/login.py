@@ -1,15 +1,15 @@
 from atproto import AsyncClient
-import configparser
+
+import module.configs as configs
 
 async def login():
     client = AsyncClient()
 
-    config = configparser.ConfigParser()
-    config.read('config/config.ini')
+    config = configs.load_config()
 
-    if 'save' in config and config['save']['username'] != "username" and config['save']['password'] != "password":
-        username = config['save']['username']
-        password = config['save']['password']
+    if config['save'] == "1":
+        username = config['username']
+        password = config['password']
     else:
         username = input("Your Username: ")
         password = input("Your password: ")
@@ -37,18 +37,23 @@ async def login():
           "\033[38;5;33m", "     //////////////  ,/////////////     ", "\033[32m", "| |_|   ||       ||       ||   |___  _____| ||    _  |  |   |  \n",
           "\033[38;5;33m", "        /////////      *////////*       ", "\033[32m", "|_______||_______||_______||_______||_______||___| |_|  |___|  \n", "\033[0m")
 
-    if config["save"]["save"] == "0":
+    if config['save'] == "0":
         while True:
             save = input("Do you want to save your login info? (y/n): ")
+
             if save == "y":
-                config = configparser.ConfigParser()
-                config['save'] = {'username': username, 'password': password, 'save': "1"}
-                with open('config/config.ini', 'w') as f:
-                    config.write(f)
+
+                config["username"] = username
+                config["password"] = password
+                config["save"] = "1"
+
+                configs.save_config(config)
                 print("Login info saved!")
                 break
+
             elif save == "n":
                 break
+
             else:
                 print("Invalid input. Please enter 'y' or 'n'.")
 
